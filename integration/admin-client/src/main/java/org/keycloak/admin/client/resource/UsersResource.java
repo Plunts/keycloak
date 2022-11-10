@@ -322,6 +322,11 @@ public interface UsersResource {
     @Produces(MediaType.APPLICATION_JSON)
     Integer countEmailVerified(@QueryParam("emailVerified") Boolean emailVerified);
 
+    @Path("count")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    Integer countByAttributes(@QueryParam("q") String searchQuery);
+
     @Path("{id}")
     UserResource get(@PathParam("id") String id);
 

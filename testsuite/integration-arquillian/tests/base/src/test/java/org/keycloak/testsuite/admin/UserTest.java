@@ -718,6 +718,24 @@ public class UserTest extends AbstractAdminTest {
     }
 
     @Test
+    public void countByAttribute() {
+        createUsers();
+
+        Map<String, String> attributes = new HashMap<>();
+        attributes.put("test", "test1");
+        Integer count = realm.users().countByAttributes(mapToSearchQuery(attributes));
+        assertNotNull(count);
+        assertEquals(1, count.intValue());
+
+        attributes.clear();
+        attributes.put("attr", "common");
+
+        count = realm.users().countByAttributes(mapToSearchQuery(attributes));
+        assertNotNull(count);
+        assertEquals(9, count.intValue());
+    }
+
+    @Test
     public void searchByMultipleAttributes() {
         createUsers();
 
@@ -728,6 +746,20 @@ public class UserTest extends AbstractAdminTest {
 
         List<UserRepresentation> users = realm.users().searchByAttributes(mapToSearchQuery(attributes));
         assertEquals(1, users.size());
+    }
+
+    @Test
+    public void countByMultipleAttributes() {
+        createUsers();
+
+        Map<String, String> attributes = new HashMap<>();
+        attributes.put("test", "test1");
+        attributes.put("attr", "common");
+        attributes.put("test1", "test1");
+
+        Integer count = realm.users().countByAttributes(mapToSearchQuery(attributes));
+        assertNotNull(count);
+        assertEquals(1, count.intValue());
     }
 
     @Test
